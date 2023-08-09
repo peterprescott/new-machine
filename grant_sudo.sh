@@ -1,5 +1,7 @@
 #! /bin/sh
 
+apt install -y sudo
+
 # Prompt for the username
 read -p "Who needs sudo rights? " username
 

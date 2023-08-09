@@ -69,7 +69,8 @@ dotfiles_dir="$HOME/.dotfiles"
 # Check if the ~/.dotfiles folder already exists
 if [ ! -d "$dotfiles_dir" ]; then
     git clone --bare https://github.com/"$USER"/.dotfiles.git "$HOME"/.dotfiles
-    alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+    alias_command="alias dotfiles='/usr/bin/git --git-dir=\$HOME/.dotfiles/ --work-tree=\$HOME'"
+    eval $alias_command
     dotfiles config --local status.showUntrackedFiles no
     dotfiles checkout
     echo "Dotfiles setup completed."

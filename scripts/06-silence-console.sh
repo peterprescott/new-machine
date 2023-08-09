@@ -34,6 +34,10 @@ sudo sed -i 's/#\ set\ bell-style\ none/set\ bell-style\ none' /etc/inputrc
 # and this
 sudo xset -b off
 
+# and also
+sudo echo 'blacklist pcspkr' >> /etc/modprobe.d/blacklist.conf
+
+
 echo "Service silence-console created and started."
 #######################################
 

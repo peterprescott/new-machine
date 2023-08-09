@@ -28,12 +28,12 @@ echo "$greeting"
 
 cd $HOME
 scripts="$HOME/new-machine/scripts"
-sudo sh $scripts/01-silence-console.sh $USER $HOME
-sh $scripts/02-pull-dotfiles.sh $USER $HOME
-sudo sh $scripts/03-install-packages.sh $USER $HOME
-sh $scripts/04-get-vimplug.sh  $USER $HOME $XDG_DATA_HOME
-sudo sh $scripts/05-update-grub.sh $USER $HOME
-sudo sh $scripts/06-setup-ly.sh  $USER $HOME
+sh $scripts/01-pull-dotfiles.sh $USER $HOME
+sudo sh $scripts/02-install-packages.sh $USER $HOME
+sh $scripts/03-get-vimplug.sh  $USER $HOME $XDG_DATA_HOME
+sudo sh $scripts/04-update-grub.sh $USER $HOME
+sudo sh $scripts/05-setup-ly.sh  $USER $HOME
+sudo sh $scripts/06-silence-console.sh $USER $HOME
 sh $scripts/07-install-miniconda.sh $USER $HOME
 sudo sh $scripts/08-install-brave-browser.sh $USER $HOME
 sudo sh $scripts/09-install-gh-cli.sh $USER $HOME

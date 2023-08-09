@@ -28,7 +28,11 @@ sudo systemctl daemon-reload
 sudo systemctl enable silence-console
 sudo systemctl start silence-console
 
+# also try this
 sudo sed -i 's/#\ set\ bell-style\ none/set\ bell-style\ none' /etc/inputrc
+
+# and this
+sudo xset -b off
 
 echo "Service silence-console created and started."
 #######################################

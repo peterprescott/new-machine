@@ -67,15 +67,14 @@ fi
 dotfiles_dir="$HOME/.dotfiles"
 
 # Check if the ~/.dotfiles folder already exists
-if [ ! -d "$dotfiles_dir" ]; then
+if ! type dotfiles; then
     git clone --bare https://github.com/"$USER"/.dotfiles.git "$HOME"/.dotfiles
-    alias_command="alias dotfiles='/usr/bin/git --git-dir=\$HOME/.dotfiles/ --work-tree=\$HOME'"
-    eval $alias_command
-    dotfiles config --local status.showUntrackedFiles no
-    dotfiles checkout
+    dotfiles_alias='/usr/bin/git --git-dir=\$HOME/.dotfiles/ --work-tree=\$HOME'
+    eval $dotfiles_alias config --local status.showUntrackedFiles no
+    eval $dotfiles_alias checkout
     echo "Dotfiles setup completed."
 else
-    echo "Dotfiles folder already exists. Skipping setup."
+    echo "Dotfiles already installed. Skipping setup."
 fi
 
 #######################################
@@ -91,6 +90,7 @@ tmux
 neovim
 curl
 w3m
+tig
 xserver-xorg-core
 xinit
 xterm
@@ -148,11 +148,12 @@ sudo update-grub
 
 if ! sudo systemctl list-unit-files --type=service | grep -q 'ly.service'; then
   git clone --recurse-submodules https://github.com/"$USER"/ly.git &&\
-  sh -c cd ly \
-   make \
-   sudo make install installsystemd \
-   sudo systemctl enable ly.service \
+  cd ly
+   make
+   sudo make install installsystemd
+   sudo systemctl enable ly.service
    sudo systemctl set-default graphical.target
+   cd ..
   rm -rf ly
   echo "Service ly created and started."
 else

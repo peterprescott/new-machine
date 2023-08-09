@@ -38,6 +38,7 @@ sh $scripts/07-install-miniconda.sh $USER $HOME
 sudo sh $scripts/08-install-brave-browser.sh $USER $HOME
 sudo sh $scripts/09-install-gh-cli.sh $USER $HOME
 sudo sh $scripts/10-install-docker.sh  $USER $HOME
+sudo sh $scripts/11-connect-wifi.sh
 
 #######################################
 

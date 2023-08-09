@@ -68,7 +68,7 @@ dotfiles_dir="$HOME/.dotfiles"
 
 # Check if the ~/.dotfiles folder already exists
 if ! type dotfiles; then
-    git clone --bare https://github.com/"$USER"/.dotfiles.git "$HOME"/.dotfiles
+    git clone --bare https://github.com/"$USER"/.dotfiles.git $HOME/.dotfiles
     dotfiles_alias='/usr/bin/git --git-dir=\$HOME/.dotfiles/ --work-tree=\$HOME'
     eval $dotfiles_alias config --local status.showUntrackedFiles no
     eval $dotfiles_alias checkout
@@ -123,7 +123,7 @@ sudo update-alternatives --set x-terminal-emulator /usr/bin/xterm
 #######################################
 
 target_path="${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim"
-if [ ! -f "$target_path" ]; then
+if [ ! -f $target_path ]; then
     sh -c 'curl -fLo "$target_path" --create-dirs \
            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
@@ -149,7 +149,7 @@ sudo update-grub
 #######################################
 
 if ! sudo systemctl list-unit-files --type=service | grep -q 'ly.service'; then
-  git clone --recurse-submodules https://github.com/"$USER"/ly.git &&\
+  git clone --recurse-submodules https://github.com/$USER/ly.git &&\
   cd ly
    make
    sudo make install installsystemd
@@ -226,14 +226,14 @@ if ! type docker; then
   curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
   sudo chmod a+r /etc/apt/keyrings/docker.gpg
   echo \
-    "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
-    "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+    "deb [arch='$(dpkg --print-architecture)' signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+    '$(. /etc/os-release && echo "$VERSION_CODENAME")' stable" | \
     sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
   sudo apt update
   sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
   sudo service docker start
   sudo docker run hello-world
-  sudo usermod -aG docker "$USER"
+  sudo usermod -aG docker $USER
   echo "Docker installed."
 else
   echo "Docker already installed. Skipping."

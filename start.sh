@@ -7,7 +7,7 @@
 start=$(date +%s)
 
 # Check if the script is being run by the root user
-if [ "$EUID" -eq 0 ]; then
+if [ "$EUID" -eq 0 ]&>/dev/null; then
     echo "This script should not be run as the root user."
     exit 1
 fi
@@ -85,6 +85,7 @@ fi
 #######################################
 
 packages=$(cat << EOF
+
 zsh
 tmux
 neovim
@@ -105,10 +106,11 @@ gnupg
 alsa-utils
 pulseaudio
 pavucontrol
+
 EOF
 )
 
-sudo apt update && sudo apt install -y "$packages"
+sudo apt install -y $packages
 chsh -s /usr/bin/zsh
 sudo update-alternatives --set editor /usr/bin/nvim
 sudo update-alternatives --set x-terminal-emulator /usr/bin/xterm

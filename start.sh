@@ -26,18 +26,18 @@ echo "$greeting"
 # Run setup scripts
 #######################################
 
-cd ~
-scripts="$(pwd)/new-machine/scripts"
-sudo sh $scripts/01-silence-console.sh
-sudo sh $scripts/02-pull-dotfiles.sh
-sudo sh $scripts/03-install-packages.sh
-sudo sh $scripts/04-get-vimplug.sh
-sudo sh $scripts/05-update-grub.sh
-sudo sh $scripts/06-setup-ly.sh
-sudo sh $scripts/07-install-miniconda.sh
-sudo sh $scripts/08-install-brave-browser.sh
-sudo sh $scripts/09-install-gh-cli.sh
-sudo sh $scripts/10-install-docker.sh
+cd $HOME
+scripts="$HOME/new-machine/scripts"
+sudo sh $scripts/01-silence-console.sh $USER $HOME
+sudo sh $scripts/02-pull-dotfiles.sh $USER $HOME
+sudo sh $scripts/03-install-packages.sh $USER $HOME
+sudo sh $scripts/04-get-vimplug.sh  $USER $HOME $XDG_DATA_HOME
+sudo sh $scripts/05-update-grub.sh $USER $HOME
+sudo sh $scripts/06-setup-ly.sh  $USER $HOME
+sudo sh $scripts/07-install-miniconda.sh $USER $HOME
+sudo sh $scripts/08-install-brave-browser.sh $USER $HOME
+sudo sh $scripts/09-install-gh-cli.sh $USER $HOME
+sudo sh $scripts/10-install-docker.sh  $USER $HOME
 
 #######################################
 

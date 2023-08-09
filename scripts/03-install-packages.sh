@@ -29,7 +29,7 @@ EOF
 )
 
 sudo apt install -y $packages
-chsh -s /usr/bin/zsh
+chsh -s /usr/bin/zsh $1
 sudo update-alternatives --set editor /usr/bin/nvim
 sudo update-alternatives --set x-terminal-emulator /usr/bin/xterm
 

@@ -2,8 +2,11 @@
 
 apt install -y sudo
 
-# Prompt for the username
-read -p "Who needs sudo rights? " username
+if $1; then
+  username=$1
+else
+  read -p "Who needs sudo rights? " username
+fi
 
 # Check if the user exists
 if id "$username"; then

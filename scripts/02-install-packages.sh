@@ -10,6 +10,8 @@ neovim
 curl
 w3m
 tig
+scrot
+asciinema
 xserver-xorg-core
 xinit
 xterm

@@ -41,8 +41,7 @@ sudo sh $scripts/10-install-docker.sh  $USER $HOME
 sh $scripts/11-install-node-vm.sh
 sudo sh $scripts/12-connect-wifi.sh
 sh $scripts/13-atuin-shell-history.sh
-sh $scripts/14-github-copilot.sh
-sudo sh $scripts/15-keyd.sh
+sudo sh $scripts/14-keyd.sh
 
 #######################################
 

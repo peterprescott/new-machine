@@ -1,0 +1,93 @@
+This seems like a common issue with NVIDIA drivers on Linux, particularly when using a minimal setup. Let's troubleshoot this systematically:
+
+1. First, let's verify your current driver situation:
+```bash
+ubuntu-drivers devices
+```
+This will show available drivers for your system.
+
+2. You might want to check if the NVIDIA modules are loading properly:
+```bash
+lsmod | grep nvidia
+```
+
+3. Since you're using a minimal setup with i3, you likely need to ensure the NVIDIA modules are properly loaded before X starts. Create or modify `/etc/X11/xorg.conf.d/10-nvidia.conf`:
+
+```bash
+sudo mkdir -p /etc/X11/xorg.conf.d
+sudo nano /etc/X11/xorg.conf.d/10-nvidia.conf
+```
+
+Add these contents:
+```
+Section "Device"
+    Identifier     "Device0"
+    Driver         "nvidia"
+    VendorName     "NVIDIA Corporation"
+    BoardName      "NVIDIA RTX A5000"
+EndSection
+```
+
+4. You should also check if the NVIDIA modules are being loaded at boot. Create or modify `/etc/modules-load.d/nvidia.conf`:
+```bash
+sudo nano /etc/modules-load.d/nvidia.conf
+```
+
+Add these lines:
+```
+nvidia
+nvidia_uvm
+nvidia_drm
+nvidia_modeset
+```
+
+5. Since you're using modern hardware, make sure you have these settings in your GRUB configuration (`/etc/default/grub`):
+```bash
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nvidia-drm.modeset=1"
+```
+
+After modifying GRUB, update it:
+```bash
+sudo update-grub
+```
+
+6. You might also want to create a file to ensure the NVIDIA services start properly:
+```bash
+sudo nano /etc/systemd/system/nvidia-persistenced.service
+```
+
+Add:
+```
+[Unit]
+Description=NVIDIA Persistence Daemon
+Wants=syslog.target
+
+[Service]
+Type=forking
+PIDFile=/var/run/nvidia-persistenced/nvidia-persistenced.pid
+Restart=always
+ExecStart=/usr/bin/nvidia-persistenced --verbose
+ExecStopPost=/bin/rm -rf /var/run/nvidia-persistenced
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Then enable it:
+```bash
+sudo systemctl enable nvidia-persistenced
+sudo systemctl start nvidia-persistenced
+```
+
+7. Finally, regenerate your initramfs:
+```bash
+sudo update-initramfs -u
+```
+
+After making these changes, reboot your system. This should ensure that:
+- The NVIDIA modules are loaded properly at boot
+- X server has the correct configuration for your GPU
+- The persistence daemon is running
+- DRM modeset is enabled for better compatibility
+
+If you still have issues after implementing these changes, we can look at your X.org logs (`/var/log/Xorg.0.log`) to see what might be going wrong. Would you like me to help analyze those logs if the problem persists?

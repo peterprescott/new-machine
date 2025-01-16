@@ -40,8 +40,7 @@ sudo sh $scripts/09-install-gh-cli.sh $USER $HOME
 sudo sh $scripts/10-install-docker.sh  $USER $HOME
 sh $scripts/11-install-node-vm.sh
 sudo sh $scripts/12-connect-wifi.sh
-sh $scripts/13-atuin-shell-history.sh
-sudo sh $scripts/14-keyd.sh
+sudo sh $scripts/13-keyd.sh
 
 #######################################
 

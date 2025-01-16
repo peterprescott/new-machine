@@ -41,6 +41,7 @@ sudo sh $scripts/10-install-docker.sh  $USER $HOME
 sh $scripts/11-install-node-vm.sh
 sudo sh $scripts/12-connect-wifi.sh
 sudo sh $scripts/13-keyd.sh
+sudo sh $scripts/14-install-rust.sh
 
 #######################################
 
